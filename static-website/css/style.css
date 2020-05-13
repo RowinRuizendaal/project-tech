@@ -388,14 +388,14 @@ fieldset {
     }
 
     .formulier div {
-        height: 25em;
+        height: 26em;
         width: 30%;
         background: white;
         box-shadow: 0 0 10px #000000;
     }
 
     .registreren div {
-        height: 37em;
+        height: 38em;
     }
 
     .formulier form p:nth-child(4),
