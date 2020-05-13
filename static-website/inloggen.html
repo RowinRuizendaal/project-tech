@@ -37,11 +37,16 @@
             <div>
                 <h2>Inloggen</h2>
                 <form action="profile.html" method="POST">
-                    <input type="email" id="email" name="email" placeholder="Email" required>
-                    <input type="password" id="password" name="password" placeholder="Wachtwoord" required>
-                    <button type="submit">Login</button>
-                    <p>Nog geen account?</p>
-                    <a href="registreren.html">maak een account</a>
+                    <fieldset>
+                        <legend>email</legend>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <legend>Wachtwoord</legend>
+                        <input type="password" id="password" name="password" placeholder="Wachtwoord" required>
+                        <legend>bevestingen</legend>
+                        <button type="submit">Login</button>
+                        <p>Nog geen account?</p>
+                        <a href="registreren.html">maak een account</a>
+                    </fieldset>
                 </form>
             </div>
         </section>

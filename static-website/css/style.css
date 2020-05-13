@@ -5,7 +5,7 @@
 }
 
 body {
-    --Orange: #ff3d25;
+    --Orangebackground: #ff3d25;
     --Gradient: linear-gradient(-45deg, #fd297b, #FF5864, #FF655B);
     --Navbackground: #161B21;
     --wit: #f6f6f6;
@@ -24,6 +24,7 @@ nav {
     left: 0;
     z-index: 10;
     font-family: sans-serif;
+    /* background: var(--Gradient); */
     background: transparent;
     position: absolute;
 }
@@ -53,7 +54,7 @@ nav li {
 }
 
 nav li:active {
-    background: var(--Orange);
+    background: var(--Orangebackground);
     font-size: 1.1em;
     outline: none;
 }
@@ -96,7 +97,7 @@ nav .hamburger {
 
 }
 
-nav div:nth-child(2) a {
+nav div:nth-child(2)>a:nth-child(1) {
     display: none;
 }
 
@@ -124,7 +125,7 @@ nav .hamburger div {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* call to action */
+
 .cta {
     position: relative;
     height: 100vh;
@@ -140,7 +141,7 @@ nav .hamburger div {
     left: 0;
     height: 100%;
     width: 100%;
-    background: url('../img/1.jpg') no-repeat center center /cover;
+    background: url('../img/CTA.jpg') no-repeat center center /cover;
     content: '';
     filter: brightness(60%);
     z-index: -1;
@@ -195,7 +196,7 @@ nav .hamburger div {
 }
 
 .cta div a:nth-child(2) {
-    margin-top: 60px;
+    margin: 60px;
 }
 
 .cta p a {
@@ -215,7 +216,7 @@ nav .hamburger div {
     left: 0;
     height: 100%;
     width: 100%;
-    background: url('../img/1.jpg') no-repeat center center /cover;
+    background: url('../img/CTA.jpg') no-repeat center center /cover;
     content: '';
     filter: brightness(60%);
     z-index: -1;
@@ -238,7 +239,7 @@ nav .hamburger div {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 30em;
+    height: 36em;
     width: 90%;
     background: white;
     box-shadow: 0 0 10px #000000;
@@ -260,15 +261,15 @@ nav .hamburger div {
 
 
 
-.formulier form p,
+.formulier form p:nth-child(4),
 .registreren div form p {
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     margin-top: 15px;
 }
 
 
-.formulier form button,
+.formulier form fieldset button,
 .registreren div form button {
     background: var(--Gradient);
     border: none;
@@ -283,7 +284,7 @@ nav .hamburger div {
     cursor: pointer;
 }
 
-.formulier form a,
+.formulier form fieldset a,
 .registreren div form a {
     background: #9400D3;
     border: none;
@@ -316,12 +317,28 @@ input[type="text"],
     box-sizing: border-box;
 }
 
-
+fieldset {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-block-end: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    border: none;
+    min-inline-size: min-content;
+}
 
 @media screen and (min-width: 768px) {
 
     nav {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0;
+        height: 70px;
+        align-items: center;
+        position: absolute;
         width: 100%;
+        background: transparent;
     }
 
     .logo {
@@ -333,7 +350,7 @@ input[type="text"],
         top: 4em;
     }
 
-    nav div:nth-child(2) a {
+    nav div:nth-child(2)>a:nth-child(1) {
         height: auto;
         width: auto;
         cursor: pointer;
@@ -379,10 +396,10 @@ input[type="text"],
     }
 
     .registreren div {
-        height: 30em;
+        height: 37em;
     }
 
-    .formulier form p,
+    .formulier form p:nth-child(4),
     .registreren div form p {
         margin-top: 20px;
         font-size: 15px;
@@ -391,14 +408,29 @@ input[type="text"],
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
-    nav div:nth-child(2) a {
-        width: 15%;
+nav div:nth-child(2) > a:nth-child(1) {
+    width: 15%;
 
-    }
+}
+
+.registreren div {
+    width: 90%;
+}
+.formulier div {
+    width: 90%;
+}
+
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-    nav div:nth-child(2) a {
+    nav div:nth-child(2) > a:nth-child(1) {
         width: 15%;
+    }
+    .registreren div {
+        width: 90%;
+
+    }
+    .formulier div {
+        width: 90%;
     }
 }
