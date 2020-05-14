@@ -13,7 +13,7 @@ app.set('views', 'views')
 
 app.get('/index', (req, res) => {
     res.render('index.ejs');
-    const url = req.headers.host + '/' + req.url; //Logging the url we went to
+    const url = req.headers.host + req.url; //Logging the url we went to
     console.log(url);
 })
 
