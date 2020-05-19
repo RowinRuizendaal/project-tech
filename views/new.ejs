@@ -9,8 +9,8 @@
 
 <body>
     <h1>movies</h1>
-    <% for (let index = 0; index < data.length; index++) { %>
-    <h2><a href="/<%= data[index].id %>"><%= data[index].title %></a></h2>
+    <% for (let index = 0; index < data.length; index++) {%>
+    <h2><a href="/<%= data[index].id %>"><%= data[index].title%></a></h2>
     <p><%= data[index].plot %></p>
     <% } %>
 
