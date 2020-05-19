@@ -8,6 +8,7 @@ const data = [
     title: 'Evil Dead',
     // eslint-disable-next-line max-len
     plot: 'Five friends travel to a cabin in the woods, where they unknowingly release flesh-possessing demons.',
+
     // eslint-disable-next-line max-len
     description: 'Five friends head to a remote cabin, where the discovery of a Book of the Dead leads them to unwittingly summon up demons living in the nearby woods. The evil presence possesses them until only one is left to fight for survival.',
   },
