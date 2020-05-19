@@ -9,7 +9,7 @@ const data = [
     // eslint-disable-next-line max-len
     plot: 'Five friends travel to a cabin in the woods, where they unknowingly release flesh-possessing demons.',
     // eslint-disable-next-line max-len
-    description: 'Five friends head to a remote cabin, where the discovery of a Book of the Dead leads them to unwittingly summon up demons living in the nearby woods. The evil presence possesses them until only one is left to fight for survival.'
+    description: 'Five friends head to a remote cabin, where the discovery of a Book of the Dead leads them to unwittingly summon up demons living in the nearby woods. The evil presence possesses them until only one is left to fight for survival.',
   },
   {
     id: 'the-shawshank-redemption',
@@ -17,7 +17,7 @@ const data = [
     // eslint-disable-next-line max-len
     plot: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
     // eslint-disable-next-line max-len
-    description: 'Andy Dufresne is a young and successful banker whose life changes drastically when he is convicted and sentenced to life imprisonment for the murder of his wife and her lover. Set in the 1940’s, the film shows how Andy, with the help of his friend Red, the prison entrepreneur, turns out to be a most unconventional prisoner.'
+    description: 'Andy Dufresne is a young and successful banker whose life changes drastically when he is convicted and sentenced to life imprisonment for the murder of his wife and her lover. Set in the 1940’s, the film shows how Andy, with the help of his friend Red, the prison entrepreneur, turns out to be a most unconventional prisoner.',
   },
 ];
 
