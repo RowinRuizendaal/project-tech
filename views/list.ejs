@@ -12,8 +12,12 @@
     <% for (let index = 0; index < data.length; index++) {%>
     <h2><a href="/<%= data[index].id %>"><%= data[index].title%></a></h2>
     <p><%= data[index].plot %></p>
+    <p><%= data[index].description %></p>
     <% } %>
 
+    <p>
+        <a href=/add>Add a movie</a>
+      </p>
 </body>
 
 </html>

@@ -1,5 +1,7 @@
 
 const express = require('express');
+const slug = require('slug');
+const bodyParser = require('body-Parser');
 const app = express();
 const port = 3000;
 const data = [
@@ -22,7 +24,9 @@ const data = [
   },
 ];
 
-
+app.use(bodyParser.urlencoded({extended: true}));
+app.post('/', add);
+app.delete('/:id', remove);
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -43,35 +47,46 @@ app.get('/registeren', (req, res) => {
 });
 
 
-app.get('/mp3', (req, res) => {
-  res.sendFile(__dirname + '/Cool-Song.mp3');
+app.get('/list', (req, res) => {
+  res.render('list.ejs', {data: data});
 });
 
 
-app.get('/new', (req, res) => {
-  res.render('new.ejs', {data: data});
+app.get('/add', (req, res) => {
+  res.render('add.ejs');
 });
 
 
-app.get('*', (req, res) => {
-  res.render('not-found.ejs');
+// eslint-disable-next-line require-jsdoc
+function add(req, res) {
+  const id = slug(req.body.title).toLowerCase();
+
+  data.push({
+    id: id,
+    title: req.body.title,
+    plot: req.body.plot,
+    description: req.body.description,
+  });
+
+  res.redirect('/list');
+}
+
+
+app.get('/detail', (req, res) => {
+  res.render('detail.ejs', {data: data});
 });
 
+// eslint-disable-next-line require-jsdoc
+function remove(req, res) {
+  const id = req.params.id;
 
-// app.get('/about', (req, res) => res.send('This is the about page'))
-// app.get('/contact', (req, res) => res.send('This is the contact page'))
+  data = data.filter(function(value) {
+    return value.id !== id;
+  });
 
-
-// http://localhost:3000/users/:2/books/:3 returns data in json format
-// app.get('/users/:userId/film/:filmId', function (req, res) {
-//     console.log(`De gekozen userid is: ${req.params.userId}`)
-
-//     if (req.params.userId === 'Rowin') {
-//         console.log('welkom Rowin');
-//     }
-//     res.send(req.params)
-// })
-// app.get('*', (req, res) => res.send('ERROR 404'))
+  res.json({status: 'ok'});
+  res.redirect('/list');
+}
 
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
