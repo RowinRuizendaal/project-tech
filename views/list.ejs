@@ -8,15 +8,16 @@
 </head>
 
 <body>
-    <h1>movies</h1>
+    <h1>Users</h1>
     <% for (let index = 0; index < data.length; index++) {%>
-    <h2><a href="/<%= data[index].id %>"><%= data[index].title%></a></h2>
-    <p><%= data[index].plot %></p>
-    <p><%= data[index].description %></p>
+    <h2><a href="/<%= data[index].id %>"><%= data[index].id%></a></h2>
+    <p><%= data[index].Name %></p>
+    <p><%= data[index].Email %></p>
+    <p><%= data[index].Password %></p>
     <% } %>
 
     <p>
-        <a href=/add>Add a movie</a>
+        <a href=/add>Add user</a>
       </p>
 </body>
 

@@ -6,21 +6,22 @@ const app = express();
 const port = 3000;
 const data = [
   {
-    id: 'evil-dead',
-    title: 'Evil Dead',
-    // eslint-disable-next-line max-len
-    plot: 'Five friends travel to a cabin in the woods, where they unknowingly release flesh-possessing demons.',
-
-    // eslint-disable-next-line max-len
-    description: 'Five friends head to a remote cabin, where the discovery of a Book of the Dead leads them to unwittingly summon up demons living in the nearby woods. The evil presence possesses them until only one is left to fight for survival.',
+    id: 1,
+    Name: 'Rowin Ruizendaal',
+    Email: 'Rowin_ruizendaal@hotmail.com',
+    Password: '!4.JpE+sC~8~6JRj',
   },
   {
-    id: 'the-shawshank-redemption',
-    title: 'The Shawshank Redemption',
-    // eslint-disable-next-line max-len
-    plot: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-    // eslint-disable-next-line max-len
-    description: 'Andy Dufresne is a young and successful banker whose life changes drastically when he is convicted and sentenced to life imprisonment for the murder of his wife and her lover. Set in the 1940’s, the film shows how Andy, with the help of his friend Red, the prison entrepreneur, turns out to be a most unconventional prisoner.',
+    id: 2,
+    Name: 'Sam de Kanter',
+    Email: 'Moffelpiertje69@gmail.com',
+    Password: 'rSvU>a2+@M%,>`Gj',
+  },
+  {
+    id: 3,
+    Name: 'Mike hovernier',
+    Email: 'Mikehov@gmail.com',
+    Password: '9}Zk>"[QewtMaMCH',
   },
 ];
 
@@ -59,13 +60,11 @@ app.get('/add', (req, res) => {
 
 // eslint-disable-next-line require-jsdoc
 function add(req, res) {
-  const id = slug(req.body.title).toLowerCase();
-
   data.push({
-    id: id,
-    title: req.body.title,
-    plot: req.body.plot,
-    description: req.body.description,
+    id: req.body.Id,
+    Name: req.body.Name,
+    Email: req.body.Email,
+    Password: req.body.Password,
   });
 
   res.redirect('/list');
