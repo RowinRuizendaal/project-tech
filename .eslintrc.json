@@ -15,6 +15,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "linebreak-style": 0 //Enter type for windows
+        "linebreak-style": 0, //Enter type for windows
+        "require-jsdoc" : 0
     }
 }

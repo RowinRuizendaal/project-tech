@@ -1,33 +1,25 @@
 
 const express = require('express');
-const slug = require('slug');
+// const slug = require('slug');
 const bodyParser = require('body-Parser');
+const mongodb = require('mongodb');
+require('dotenv').config();
 const app = express();
 const port = 3000;
-const data = [
-  {
-    id: 1,
-    Name: 'Rowin Ruizendaal',
-    Email: 'Rowin_ruizendaal@hotmail.com',
-    Password: '!4.JpE+sC~8~6JRj',
-  },
-  {
-    id: 2,
-    Name: 'Sam de Kanter',
-    Email: 'Moffelpiertje69@gmail.com',
-    Password: 'rSvU>a2+@M%,>`Gj',
-  },
-  {
-    id: 3,
-    Name: 'Mike hovernier',
-    Email: 'Mikehov@gmail.com',
-    Password: '9}Zk>"[QewtMaMCH',
-  },
-];
+
+
+let db = null;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}-hdvet.azure.mongodb.net/test?retryWrites=true&w=majority`;
+
+mongodb.MongoClient.connect(uri, function(err, client) {
+  if (err) {
+    throw err;
+  }
+  db = client.db(process.env.DB_NAME);
+});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.post('/', add);
-app.delete('/:id', remove);
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -49,7 +41,14 @@ app.get('/registeren', (req, res) => {
 
 
 app.get('/list', (req, res) => {
-  res.render('list.ejs', {data: data});
+  db.collection('Users').find().toArray(push); // promise pending
+
+
+  function push(err, data) {
+    if (err) next(err);
+    console.log(data);
+    res.render('list.ejs', {data: data});
+  }
 });
 
 
@@ -58,13 +57,12 @@ app.get('/add', (req, res) => {
 });
 
 
-// eslint-disable-next-line require-jsdoc
 function add(req, res) {
   data.push({
-    id: req.body.Id,
-    Name: req.body.Name,
-    Email: req.body.Email,
-    Password: req.body.Password,
+    id: data.length + 1,
+    Name: req.body.name,
+    Email: req.body.email,
+    Password: req.body.password,
   });
 
   res.redirect('/list');
@@ -74,18 +72,6 @@ function add(req, res) {
 app.get('/detail', (req, res) => {
   res.render('detail.ejs', {data: data});
 });
-
-// eslint-disable-next-line require-jsdoc
-function remove(req, res) {
-  const id = req.params.id;
-
-  data = data.filter(function(value) {
-    return value.id !== id;
-  });
-
-  res.json({status: 'ok'});
-  res.redirect('/list');
-}
 
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
