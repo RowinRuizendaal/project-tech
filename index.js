@@ -9,7 +9,7 @@ const port = 3000;
 
 
 let db = null;
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}-hdvet.azure.mongodb.net/test?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`;
 
 mongodb.MongoClient.connect(uri, function(err, client) {
   if (err) {
@@ -45,27 +45,20 @@ app.get('/list', (req, res) => {
 
 
   function push(err, data) {
-    if (err) next(err);
-    console.log(data);
+    if (err) console.log(err);
     res.render('list.ejs', {data: data});
   }
 });
 
 
-app.get('/add', (req, res) => {
-  res.render('add.ejs');
-});
-
-
 function add(req, res) {
-  data.push({
-    id: data.length + 1,
-    Name: req.body.name,
-    Email: req.body.email,
-    Password: req.body.password,
+  db.collection('Users').insertOne({
+    'username': req.body.name,
+    'Email': req.body.email,
+    'Password': req.body.password,
   });
 
-  res.redirect('/list');
+  console.log(`A new user has registered #awesome! : ${req.body.email}`);
 }
 
 
