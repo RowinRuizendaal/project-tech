@@ -19,7 +19,7 @@ Nodemon index.js
 ```
 
 ## Note:
-To run this project you will need my .env file, to get this either message me one of the options below or fill in my github issue template
+To run this project you will need my .env file, to get this either message me on one of the options below or fill in my github issue template
 
 _Email:_
 _<rowin.ruizendaal@hva.nl>_
