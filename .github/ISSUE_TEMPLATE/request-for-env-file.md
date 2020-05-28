@@ -1,7 +1,7 @@
 ---
 name: Request for env file
 about: Request for env file
-title: ''
+title: 'Request for env file'
 labels: question
 assignees: RowinRuizendaal
 
