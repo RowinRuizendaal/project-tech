@@ -11,15 +11,17 @@ const port = 3000;
 let db = null;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`;
 
-mongodb.MongoClient.connect(uri, function(err, client) {
-  if (err) {
-    throw err;
-  }
+
+mongodb.MongoClient.connect(uri, {
+  useUnifiedTopology: true},
+function(err, client) {
+  if (err) throw err;
   db = client.db(process.env.DB_NAME);
 });
 
+
 app.use(bodyParser.urlencoded({extended: true}));
-app.post('/', add);
+app.post('/:add', add);
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -54,11 +56,12 @@ app.get('/list', (req, res) => {
 function add(req, res) {
   db.collection('Users').insertOne({
     'username': req.body.name,
-    'Email': req.body.email,
-    'Password': req.body.password,
+    'email': req.body.email,
+    'password': req.body.password,
   });
 
   console.log(`A new user has registered #awesome! : ${req.body.email}`);
+  res.redirect('/list');
 }
 
 
@@ -67,4 +70,4 @@ app.get('/detail', (req, res) => {
 });
 
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`Dating-app listening at http://localhost:${port}`));
