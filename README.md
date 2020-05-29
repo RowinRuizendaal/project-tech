@@ -36,3 +36,15 @@ _[wiki](https://github.com/RowinRuizendaal/project-tech/wiki)_
 _Static website_
 _[Static website](https://rowinruizendaal.github.io/project-tech/static-website/index.html)_
 
+## Progress:
+
+- [x] Connection with database
+- [x] User registration
+- [x] User login
+- [x] User sessions
+- [x] User Dashboard with data
+- [ ] Salt passwords
+- [ ] Update/Delete
+- [ ] Database optimisation
+- [ ] Error partial messages render
+
