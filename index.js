@@ -1,8 +1,9 @@
 
 const express = require('express');
-// const slug = require('slug');
 const bodyParser = require('body-Parser');
 const mongodb = require('mongodb');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const app = express();
 const port = 3000;
@@ -23,15 +24,23 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-app.post('/add', register); // Register function
-app.post('/login', login); // Validate if user exist
+// app.post('/add', register); // Register function
+app.use(cookieParser());
+app.use(
+    session({
+      secret: process.env.SECRET,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {maxAge: 3600000},
+    }),
+);
 
 
-app.get('/index', (req, res) => {
+app.get('/', (_req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/inloggen', (req, res) => {
+app.get('/inloggen', (_req, res) => {
   res.render('inloggen.ejs');
 });
 
@@ -40,7 +49,9 @@ app.get('/registeren', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-  res.render('profile.ejs');
+  if (req.session.user) {
+    res.render('profile', {data: req.session.user}); // set session data
+  } else res.redirect('/inloggen');
 });
 
 app.get('/list', (req, res) => {
@@ -52,9 +63,27 @@ app.get('/list', (req, res) => {
   }
 });
 
+app.post('/login', (req, res) => {
+  const username = req.body.email;
+  const password = req.body.password;
 
-function register(req, res) {
-  if (req.body.password == req.body.password2) {
+  db.collection('Users').findOne({
+    email: username,
+    password: password,
+  }, (err, result) => {
+    if (err) console.log(err);
+    if (result) {
+      console.log(result);
+      req.session.user = result;
+      req.session.save(function(err) {
+        res.redirect('/profile');
+      });
+    } else res.redirect('/inloggen');
+  });
+});
+
+app.post('/add', (req, res) => {
+  if (req.body.password == req.body.password_repeat) {
     console.log('wachtwoorden overeen');
     db.collection('Users').insertOne({
       'username': req.body.name,
@@ -62,21 +91,9 @@ function register(req, res) {
       'password': req.body.password,
     });
     console.log(`A new user has registered #awesome! : ${req.body.email}`);
-    res.redirect('/list');
-  } else res.redirect('/registeren');
-}
-
-
-function login(req, res) {
-  db.collection('Users').findOne({
-    email: req.body.email,
-    password: req.body.password,
-  }, function(error, response) {
-    if (error) throw error;
-    if (response) res.redirect('/profile'); // Adding session later
-    else res.redirect('/inloggen');
-  });
-};
+    res.redirect('/inloggen');
+  } else res.redirect('/registeren'); // handling error message later
+});
 
 
 app.listen(port, () => console.log(`Dating-app listening at http://localhost:${port}`));

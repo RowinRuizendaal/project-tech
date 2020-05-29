@@ -406,29 +406,119 @@ fieldset {
 
 }
 
+
+/* Als de gebruiker is ingelogd */
+.banner {
+    background: var(--Gradient);
+    height: 20vh;
+    position: relative;
+    margin: auto;
+}
+
+.banner img {
+    position: absolute;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    height: 140px;
+    width: 140px;
+}
+
+.banner h2 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.18;
+    font-weight: 800;
+    position: absolute;
+    margin-left: 11rem;
+    margin-top: 4rem;
+}
+
+
+.data {
+    margin: 4rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-gap: 2rem;
+}
+
+.data .card {
+    /* background: var(--Gradient); */
+    background-color: #523a78;
+background-image: linear-gradient(316deg, #523a78 0%, #ee696b 74%);
+
+
+
+        
+    /* padding: 2rem; */
+    color: white;
+    box-shadow: 0px 0px 10px #f6f6f6;
+    text-align: center;
+    height: 10rem;
+    width: 100%;
+}
+
+.data .card h2 {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.18;
+    font-weight: 800;
+    font-size: 2rem;
+    padding: 10px;
+    text-align: center;
+}
+
+.data .card p {
+    font-size: 1rem;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* media queries */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
-nav div:nth-child(2) > a:nth-child(1) {
-    width: 15%;
+    nav div:nth-child(2)>a:nth-child(1) {
+        width: 15%;
 
-}
+    }
 
-.registreren div {
-    width: 90%;
-}
-.formulier div {
-    width: 90%;
-}
+    .registreren div {
+        width: 90%;
+    }
+
+    .formulier div {
+        width: 90%;
+    }
 
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-    nav div:nth-child(2) > a:nth-child(1) {
+    nav div:nth-child(2)>a:nth-child(1) {
         width: 15%;
     }
+
     .registreren div {
         width: 90%;
 
     }
+
     .formulier div {
         width: 90%;
     }
