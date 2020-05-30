@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-Parser');
 const mongodb = require('mongodb');
+const objectId = mongodb.ObjectID;
 const flash = require('express-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -32,7 +33,7 @@ app.use(cookieParser());
 app.use(
     session({
       secret: process.env.SECRET,
-      resave: false,
+      resave: true,
       saveUninitialized: false,
       cookie: {
         maxAge: 3600000,
@@ -42,25 +43,10 @@ app.use(
 app.use(flash());
 
 
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/inloggen', (_req, res) => {
-  res.render('inloggen.ejs');
-});
-
-app.get('/registeren', (req, res) => {
-  res.render('registeren.ejs');
-});
-
-app.get('/profile', (req, res) => {
-  if (req.session.user) {
-    res.render('profile', {
-      data: req.session.user,
-    }); // set session data
-  } else res.redirect('/inloggen');
-});
 
 app.get('/list', (req, res) => {
   db.collection('Users')
@@ -69,6 +55,67 @@ app.get('/list', (req, res) => {
         if (err) console.log(err);
         console.log(data);
         res.render('list.ejs', {data: data});
+      });
+});
+
+
+app.get('/inloggen', (req, res) => {
+  res.render('inloggen.ejs');
+});
+
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/inloggen');
+});
+
+app.get('/registeren', (req, res) => {
+  res.render('registeren.ejs');
+});
+
+
+app.get('/profile', (req, res) => {
+  if (req.session.user) {
+    res.render('profile', {
+      data: req.session.user,
+    });
+  } else res.redirect('/inloggen');
+});
+
+app.get('/edit', (req, res) => {
+  if (req.session.user) {
+    res.render('edit', {
+      data: req.session.user,
+    });
+  } else res.redirect('/inloggen');
+});
+
+app.post('/edit-profile', (req, res) => {
+  const newdata = {
+    username: req.body.username,
+    email: req.body.email.toLowerCase(),
+    password: req.body.password,
+  };
+  db.collection('Users').updateOne(
+      {
+        '_id': objectId(req.session.user._id),
+      },
+      {
+        $set: {
+          'username': newdata.username,
+          'email': newdata.email,
+          'password': newdata.password,
+        },
+      }, (err, result) => {
+        if (err) console.log(err);
+        if (result) {
+          req.session.user = newdata;
+          req.session.save( function(err) {
+            req.session.reload( function(err) {
+              res.render('profile', {data: req.session.user});
+            });
+          });
+        }
       });
 });
 
@@ -82,7 +129,6 @@ app.post('/login', (req, res) => {
   }, (err, result) => {
     if (err) console.log(err);
     if (result) {
-      console.log(result);
       req.session.user = result;
       req.session.save(function(err) {
         res.redirect('/profile');
@@ -99,13 +145,10 @@ app.post('/add', (req, res) => {
   db.collection('Users').findOne({
     email: req.body.email.toLowerCase(),
   }, (err, user) => {
-    // IF THERE IS A ERROR LOG IT
     if (err) console.log(err);
-    // IF EMAIL/USER ALREADY EXIST
     if (user) {
       req.flash('error', 'Email already exist please try a diffrent one');
       res.redirect('/registeren');
-      // IF PASSWORDS ARE THE SAME
     } else if (req.body.password == req.body.password_repeat) {
       db.collection('Users').insertOne({
         'username': req.body.name.toLowerCase(),

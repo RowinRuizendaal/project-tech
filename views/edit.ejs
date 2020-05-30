@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Edit profile</title>
+</head>
+<body>
+    <main>
+        <section class="banner">
+            <img src="./img/avatars/profile.png" alt="Placeholder">
+            <h2>Bewerk profiel</h2>
+        </section>
+
+        <section class="edit">
+                <form method="POST" action="/edit-profile">
+                    <fieldset>
+                        <legend>Naam</legend>
+                        <input type="text" id="email" name="username"  value="<%= data.username %>" required>
+                        <legend>email</legend>
+                        <input type="email" id="email" name="email"  value="<%= data.email %>" required>
+                        <legend>Wachtwoord</legend>
+                        <input type="password" id="password" name="password"  value="<%= data.password %>" required>
+                        <button type="submit">Wijzig profiel</button>
+                    </fieldset>
+                </form>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
