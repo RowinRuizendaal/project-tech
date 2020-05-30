@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-Parser');
 const mongodb = require('mongodb');
+const flash = require('express-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
@@ -38,6 +39,7 @@ app.use(
       },
     }),
 );
+app.use(flash());
 
 
 app.get('/', (_req, res) => {
@@ -85,7 +87,10 @@ app.post('/login', (req, res) => {
       req.session.save(function(err) {
         res.redirect('/profile');
       });
-    } else res.redirect('/inloggen');
+    } else {
+      req.flash('error', 'Account not found');
+      res.redirect('/inloggen');
+    }
   });
 });
 
@@ -98,7 +103,7 @@ app.post('/add', (req, res) => {
     if (err) console.log(err);
     // IF EMAIL/USER ALREADY EXIST
     if (user) {
-      console.log('Email already exist');
+      req.flash('error', 'Email already exist please try a diffrent one');
       res.redirect('/registeren');
       // IF PASSWORDS ARE THE SAME
     } else if (req.body.password == req.body.password_repeat) {
@@ -108,8 +113,12 @@ app.post('/add', (req, res) => {
         'password': req.body.password,
       });
       console.log(`A new user has registered #awesome! : ${req.body.email}`);
+      req.flash('succes', 'Your account has been made please log in');
       res.redirect('/inloggen');
-    } else res.redirect('/registeren'); // handling error message later
+    } else {
+      req.flash('error', 'Passwords are not the same');
+      res.redirect('/registeren');
+    }
   });
 });
 

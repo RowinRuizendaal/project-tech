@@ -9,23 +9,25 @@
 </head>
 
 <body>
-    <%- include('includes/nav'); -%> <!-- including nav.ejs-->
+    <%- include('includes/nav'); -%>
+    <!-- including nav.ejs-->
 
     <main>
         <!--Registeren-->
         <section class="formulier registreren">
             <div>
                 <h2>Registeren</h2>
+                <%- include('includes/error-message'); -%>
                 <form action=/add method=post>
                     <fieldset>
                         <legend>naam</legend>
-                        <input type="name" id="name" name="name"  required>
+                        <input type="name" id="name" name="name" required>
                         <legend>email</legend>
-                        <input type="email" id="email" name="email"  required>
+                        <input type="email" id="email" name="email" required>
                         <legend>wachtwoord</legend>
-                        <input type="password" id="password" name="password"  required>
+                        <input type="password" id="password" name="password" required>
                         <legend>herhaling wachtwoord</legend>
-                        <input type="password" id="password" name="password_repeat"  required>
+                        <input type="password" id="password" name="password_repeat" required>
                         <legend>bevestigen</legend>
                         <button type="submit">Registeren</button>
                         <p>Al een bestaand account?</p>
@@ -36,7 +38,8 @@
         </section>
     </main>
 
-    <%- include('includes/footer'); -%> <!-- including footer.ejs-->
+    <%- include('includes/footer'); -%>
+    <!-- including footer.ejs-->
 
 </body>
 
