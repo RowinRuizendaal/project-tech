@@ -44,8 +44,8 @@ _[Static website](https://rowinruizendaal.github.io/project-tech/static-website/
 - [x] User sessions
 - [x] User Dashboard with data
 - [x] Error messages feedback
+- [x] Update/Delete
 - [ ] Salt passwords
-- [ ] Update/Delete
 - [ ] Database optimisation
 
 ## Resources used:
