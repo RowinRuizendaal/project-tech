@@ -54,69 +54,53 @@ app.get('/list', (req, res) => {
       .toArray((err, data) => {
         if (err) console.log(err);
         console.log(data);
-        res.render('list.ejs', {data: data});
+        res.render('list.ejs', {
+          data: data,
+        });
       });
 });
 
 
-app.get('/inloggen', (req, res) => {
-  res.render('inloggen.ejs');
-});
-
-
-app.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/inloggen');
-});
-
+// Registeren
 app.get('/registeren', (req, res) => {
   res.render('registeren.ejs');
 });
 
+app.post('/register', (req, res) => {
+  const createUsername = req.body.name;
+  const createEmail = req.body.email.toLowerCase();
+  const createPassword = req.body.password;
+  const createPassword2 = req.body.password_repeat;
 
-app.get('/profile', (req, res) => {
-  if (req.session.user) {
-    res.render('profile', {
-      data: req.session.user,
-    });
-  } else res.redirect('/inloggen');
-});
 
-app.get('/edit', (req, res) => {
-  if (req.session.user) {
-    res.render('edit', {
-      data: req.session.user,
-    });
-  } else res.redirect('/inloggen');
-});
-
-app.post('/edit-profile', (req, res) => {
-  const newdata = {
-    username: req.body.username,
-    email: req.body.email.toLowerCase(),
-    password: req.body.password,
-  };
-  db.collection('Users').updateOne(
-      {
-        '_id': objectId(req.session.user._id),
-      },
-      {
-        $set: {
-          'username': newdata.username,
-          'email': newdata.email,
-          'password': newdata.password,
-        },
-      }, (err, result) => {
-        if (err) console.log(err);
-        if (result) {
-          req.session.user = newdata;
-          req.session.save( function(err) {
-            req.session.reload( function(err) {
-              res.render('profile', {data: req.session.user});
-            });
-          });
-        }
+  db.collection('Users').findOne({
+    email: createEmail,
+  },
+  (err, user) => {
+    if (err) console.log(err);
+    if (user) {
+      req.flash('error', 'Email already exist please try a diffrent one');
+      res.redirect('/registeren');
+    } else if (createPassword == createPassword2) {
+      db.collection('Users').insertOne({
+        'username': createUsername,
+        'email': createEmail,
+        'password': createPassword,
       });
+      console.log(`A new user has registered #awesome! : ${req.body.email}`);
+      req.flash('succes', 'Your account has been made please log in');
+      res.redirect('/inloggen');
+    } else {
+      req.flash('error', 'Passwords are not the same');
+      res.redirect('/registeren');
+    }
+  });
+});
+// Einde registeren
+
+// inloggen
+app.get('/inloggen', (req, res) => {
+  res.render('inloggen.ejs');
 });
 
 app.post('/login', (req, res) => {
@@ -139,31 +123,64 @@ app.post('/login', (req, res) => {
     }
   });
 });
+// Einde van inloggen
 
 
-app.post('/add', (req, res) => {
-  db.collection('Users').findOne({
+// Profiel - updaten profiel
+app.get('/profile', (req, res) => {
+  if (req.session.user) {
+    res.render('profile', {
+      data: req.session.user,
+    });
+  } else res.redirect('/inloggen');
+});
+
+app.get('/edit', (req, res) => {
+  if (req.session.user) {
+    res.render('edit', {
+      data: req.session.user,
+    });
+  } else res.redirect('/inloggen');
+});
+
+app.post('/edit-profile', (req, res) => {
+  const newdata = {
+    username: req.body.username,
     email: req.body.email.toLowerCase(),
-  }, (err, user) => {
+    password: req.body.password,
+  };
+  db.collection('Users').updateOne({
+    '_id': objectId(req.session.user._id),
+  }, {
+    $set: {
+      'username': newdata.username,
+      'email': newdata.email,
+      'password': newdata.password,
+    },
+  }, (err, result) => {
     if (err) console.log(err);
-    if (user) {
-      req.flash('error', 'Email already exist please try a diffrent one');
-      res.redirect('/registeren');
-    } else if (req.body.password == req.body.password_repeat) {
-      db.collection('Users').insertOne({
-        'username': req.body.name.toLowerCase(),
-        'email': req.body.email.toLowerCase(),
-        'password': req.body.password,
+    if (result) {
+      req.session.user = newdata;
+      req.session.save(function(err) {
+        req.session.reload(function(err) {
+          res.render('profile', {
+            data: req.session.user,
+          });
+        });
       });
-      console.log(`A new user has registered #awesome! : ${req.body.email}`);
-      req.flash('succes', 'Your account has been made please log in');
-      res.redirect('/inloggen');
-    } else {
-      req.flash('error', 'Passwords are not the same');
-      res.redirect('/registeren');
     }
   });
 });
+
+// Einde profiel - updaten profiel
+
+
+// uitloggen
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/inloggen');
+});
+// Einde uitloggem
 
 
 app.listen(port, () => console.log(`Dating-app listening at http://localhost:${port}`));
