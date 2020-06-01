@@ -11,13 +11,19 @@
     <main>
         <section class="details">
             <div></div>
-            <img src="./img/avatars/profile.png" alt="Profile picture">
+            <img src="./img/avatars/<%= data.picture %>" alt="Profile picture">
         </section>
         <section class="edit">
             <form method="POST" action="/edit-profile">
+                <legend>Profiel foto</legend>
+                <select name="profilepicture" selected="linux.png">
+                    <option value="Moffel.png">Moffel</option>
+                    <option value="Stock.png">Stock</option>
+                    <option value="linux.png">Linux</option>
+                  </select>
                 <fieldset>
                     <legend>Naam</legend>
-                    <input type="text" id="email" name="username"  value="<%= data.username %>" required>
+                    <input type="text" id="ussername" name="username"  value="<%= data.username %>" required>
                     <legend>email</legend>
                     <input type="email" id="email" name="email"  value="<%= data.email %>" required>
                     <legend>Wachtwoord</legend>

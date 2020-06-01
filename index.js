@@ -86,6 +86,7 @@ app.post('/register', (req, res) => {
         'username': createUsername,
         'email': createEmail,
         'password': createPassword,
+        'picture': 'stock.png',
       });
       console.log(`A new user has registered #awesome! : ${req.body.email}`);
       req.flash('succes', 'Your account has been made please log in');
@@ -113,6 +114,7 @@ app.post('/login', (req, res) => {
   }, (err, result) => {
     if (err) console.log(err);
     if (result) {
+      console.log(result);
       req.session.user = result;
       req.session.save(function(err) {
         res.redirect('/profile');
@@ -145,12 +147,13 @@ app.get('/edit', (req, res) => {
 });
 
 app.post('/edit-profile', (req, res) => {
-  console.log(req.session.user._id);
+  console.log(req.body.profilepicture);
   const newdata = {
     id: req.session.user._id,
     username: req.body.username,
     email: req.body.email.toLowerCase(),
     password: req.body.password,
+    picture: req.body.profilepicture,
   };
   db.collection('Users').updateOne({
     '_id': objectId(newdata.id),
@@ -159,6 +162,7 @@ app.post('/edit-profile', (req, res) => {
       'username': newdata.username,
       'email': newdata.email,
       'password': newdata.password,
+      'picture': newdata.picture,
     },
   }, (err, result) => {
     if (err) console.log(err);
