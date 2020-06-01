@@ -140,17 +140,20 @@ app.get('/edit', (req, res) => {
     res.render('edit', {
       data: req.session.user,
     });
+    console.log(req.session.user);
   } else res.redirect('/inloggen');
 });
 
 app.post('/edit-profile', (req, res) => {
+  console.log(req.session.user._id);
   const newdata = {
+    id: req.session.user._id,
     username: req.body.username,
     email: req.body.email.toLowerCase(),
     password: req.body.password,
   };
   db.collection('Users').updateOne({
-    '_id': objectId(req.session.user._id),
+    '_id': objectId(newdata.id),
   }, {
     $set: {
       'username': newdata.username,
@@ -174,6 +177,21 @@ app.post('/edit-profile', (req, res) => {
 
 // Einde profiel - updaten profiel
 
+
+// Delete van account
+app.get('/delete', (req, res) => {
+  const sessionsid = req.session.user.id;
+  db.collection('Users').deleteOne({
+    '_id': objectId(sessionsid),
+  }, (err, result) => {
+    if (err) console.log(err);
+    if (result) {
+      req.session.destroy();
+      res.redirect('/');
+    } else console.log('Something went wrong');
+  });
+});
+// Einde deleten
 
 // uitloggen
 app.get('/logout', (req, res) => {
