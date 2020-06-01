@@ -15,7 +15,7 @@ cd project-tech
 npm install
 
 # serve with hot reload at localhost:3000
-Nodemon index.js
+Nodemon index.js || npx nodemon index.js
 ```
 
 ## Note:
