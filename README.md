@@ -44,13 +44,23 @@ _[Static website](https://rowinruizendaal.github.io/project-tech/static-website/
 - [x] User sessions
 - [x] User Dashboard with data
 - [x] Error messages feedback
-- [x] Update/Delete
-- [ ] Salt passwords
-- [ ] Database optimisation
+- [x] Update account information
+- [x] Delete account
+
+
+
+## Database structure:
+
+
+| Tables        | type          | value                     |
+| ------------- |:-------------:| -----:                    |    
+| _id           | primary key   | auto-increment            |
+| username      | string        | Rowin |                   |
+| email         | string        | rowin_ruizendaal@gmail.com|
+| password      | string        | secret                    |     
+| picture       | string        | stock.png                 | 
 
 ## Resources used:
-
-
 
 Argument passed in must be a string of 24 hex characters - I think it is. (2015, May 5). Retrieved May 31, 2020, from https://stackoverflow.com/questions/30051236/argument-passed-in-must-be-a-string-of-24-hex-characters-i-think-it-is
 

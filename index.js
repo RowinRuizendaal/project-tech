@@ -49,13 +49,11 @@ app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-
 app.get('/list', (req, res) => {
   db.collection('Users')
       .find()
       .toArray((err, data) => {
         if (err) console.log(err);
-        console.log(data);
         res.render('list.ejs', {
           data: data,
         });
