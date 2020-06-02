@@ -24,15 +24,20 @@
                   </select>
                 <fieldset>
                     <legend>Naam</legend>
-                    <input type="text" id="ussername" name="username"  value="<%= data.username %>" required>
+                    <input type="text" id="username" name="username"  value="<%= data.username %>" required>
                     <legend>email</legend>
                     <input type="email" id="email" name="email"  value="<%= data.email %>" required>
+                    <legend>leeftijd</legend>
+                    <input type="number" id="age" name="age"  value="<%= data.age %>" required>
+                    <legend>Locatie</legend>
+                    <input type="text" id="location" name="location"  value="<%= data.location %>" required>
                     <legend>Wachtwoord</legend>
                     <input type="password" id="password" name="password"  value="<%= data.password %>" required>
                     <button type="submit">Wijzig profiel</button>
                 </fieldset>
         </form>
         <a href="/delete">
+
             <p>Delete</p>
         </a>
     </section>

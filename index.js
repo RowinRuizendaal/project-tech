@@ -11,8 +11,8 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 
-
-let db = null;
+// Code retrieved from Danny -> examples repro
+let db = '';
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`;
 
 
@@ -87,6 +87,8 @@ app.post('/register', (req, res) => {
         'email': createEmail,
         'password': createPassword,
         'picture': 'stock.png',
+        'age': Math.floor(Math.random() * 30) + 20,
+        'location': '',
       });
       console.log(`A new user has registered #awesome! : ${req.body.email}`);
       req.flash('succes', 'Your account has been made please log in');
@@ -154,6 +156,8 @@ app.post('/edit-profile', (req, res) => {
     email: req.body.email.toLowerCase(),
     password: req.body.password,
     picture: req.body.profilepicture,
+    age: req.body.age,
+    location: req.body.location,
   };
   db.collection('Users').updateOne({
     '_id': objectId(newdata.id),
@@ -163,6 +167,8 @@ app.post('/edit-profile', (req, res) => {
       'email': newdata.email,
       'password': newdata.password,
       'picture': newdata.picture,
+      'age': newdata.age,
+      'location': newdata.location,
     },
   }, (err, result) => {
     if (err) console.log(err);

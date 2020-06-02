@@ -58,7 +58,9 @@ _[Static website](https://rowinruizendaal.github.io/project-tech/static-website/
 | username      | string        | Rowin |                   |
 | email         | string        | rowin_ruizendaal@gmail.com|
 | password      | string        | secret                    |     
-| picture       | string        | stock.png                 | 
+| picture       | string        | stock.png                 |
+| age           | integer       | 48                        |
+| location      | string        | Amsterdam                 |   
 
 ## Resources used:
 

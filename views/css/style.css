@@ -432,9 +432,15 @@ fieldset {
     font-size: 1rem;
 }
 
-.details h2:nth-child(4) {
+.details > p:nth-child(4) {
+    text-align: center;
+}
+
+.details > p:nth-child(5) {
+    text-align: center;
     margin-bottom: 2rem;
 }
+
 
 .details a {
     color: white;
