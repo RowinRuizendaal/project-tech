@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-Parser');
+const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const objectId = mongodb.ObjectID;
 const flash = require('express-flash');
@@ -9,7 +9,7 @@ require('dotenv').config();
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT //3000;
 
 // Code retrieved from Danny -> examples repro
 let db = '';
@@ -45,7 +45,7 @@ app.use(
 app.use(flash());
 
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index.ejs');
 });
 
@@ -197,7 +197,7 @@ app.get('/delete', (req, res) => {
     if (err) console.log(err);
     if (result) {
       req.session.destroy();
-      res.redirect('/');
+      res.redirect('/index');
     } else console.log('Something went wrong');
   });
 });
