@@ -9,7 +9,7 @@ require('dotenv').config();
 
 
 const app = express();
-const port = process.env.PORT; // 3000;
+const port = process.env.PORT; // 3000
 
 // Code retrieved from Danny -> examples repro
 let db = '';
@@ -190,7 +190,7 @@ app.post('/edit-profile', (req, res) => {
 
 // Delete van account
 app.get('/delete', (req, res) => {
-  const sessionsid = req.session.user.id;
+  const sessionsid = req.session.user._id;
   db.collection('Users').deleteOne({
     '_id': objectId(sessionsid),
   }, (err, result) => {
