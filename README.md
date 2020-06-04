@@ -3,7 +3,11 @@
 > Hi, welcome to my repository here you can find my source code for my dating app feature! I will be making a register and login feature. My feature will be programmed in node js.
 
 
-![Homepage](https://rowinruizendaal.github.io/project-tech/img/homepage.png)
+![Homepage](https://rowinruizendaal.github.io/project-tech/img/wiki-pic.png)
+
+## Live demo
+[Website on heroku](https://rowinruizendaaldatingapp.herokuapp.com/index)
+
 
 ## Build Setup
 
