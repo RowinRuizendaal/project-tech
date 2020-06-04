@@ -5,6 +5,10 @@
 
 ![Homepage](https://rowinruizendaal.github.io/project-tech/img/wiki-pic.png)
 
+##Live demo
+[Website on heroku](https://rowinruizendaaldatingapp.herokuapp.com/index)
+
+
 ## Build Setup
 
 ``` bash
