@@ -45,7 +45,7 @@ app.use(
 app.use(flash());
 
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index.ejs');
 });
 
@@ -197,7 +197,7 @@ app.get('/delete', (req, res) => {
     if (err) console.log(err);
     if (result) {
       req.session.destroy();
-      res.redirect('/');
+      res.redirect('/index');
     } else console.log('Something went wrong');
   });
 });
